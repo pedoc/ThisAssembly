@@ -107,19 +107,19 @@ public class ConstantsGenerator : IIncrementalGenerator
         if ((int)cs.LanguageVersion >= 1100)
             model.RawStrings = true;
 
-        if (IsEditor)
-        {
-            var status = Diagnostics.GetOrSetStatus(options);
-            if (status == SponsorStatus.Unknown || status == SponsorStatus.Expired)
-            {
-                model.Warn = string.Format(CultureInfo.CurrentCulture, Resources.Editor_Disabled, Funding.Product, Funding.HelpUrl);
-                model.Remarks = Resources.Editor_DisabledRemarks;
-            }
-            else if (status == SponsorStatus.Grace && Diagnostics.TryGet() is { } grace && grace.Properties.TryGetValue(nameof(SponsorStatus.Grace), out var days))
-            {
-                model.Remarks = string.Format(CultureInfo.CurrentCulture, Resources.Editor_GraceRemarks, days);
-            }
-        }
+        // if (IsEditor)
+        // {
+        //     var status = Diagnostics.GetOrSetStatus(options);
+        //     if (status == SponsorStatus.Unknown || status == SponsorStatus.Expired)
+        //     {
+        //         model.Warn = string.Format(CultureInfo.CurrentCulture, Resources.Editor_Disabled, Funding.Product, Funding.HelpUrl);
+        //         model.Remarks = Resources.Editor_DisabledRemarks;
+        //     }
+        //     else if (status == SponsorStatus.Grace && Diagnostics.TryGet() is { } grace && grace.Properties.TryGetValue(nameof(SponsorStatus.Grace), out var days))
+        //     {
+        //         model.Remarks = string.Format(CultureInfo.CurrentCulture, Resources.Editor_GraceRemarks, days);
+        //     }
+        // }
 
         var output = template.Render(model, member => member.Name);
 
